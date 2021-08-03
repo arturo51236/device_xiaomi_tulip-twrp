@@ -14,26 +14,27 @@
 # limitations under the License.
 #
 
-# Release name
-PRODUCT_RELEASE_NAME := tulip
-
+# Inherit some Omni stuff.
+$(call inherit-product, vendor/omni/config/common.mk)
 $(call inherit-product, build/target/product/embedded.mk)
 
-# Inherit from our custom product configuration
-$(call inherit-product, vendor/omni/config/common.mk)
+# Props.
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.treble.enabled=true \
+    sys.usb.controller=a800000.dwc3 \
+    sys.usb.rndis.func.name=rndis_bam \
+    sys.usb.rmnet.func.name=rmnet_bam
 
-## Device identifier. This must come after all inclusions
+# Enable stock zip packages flash.
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.secure=1 \
+    ro.adb.secure=0 \
+    ro.allow.mock.location=0
+
+# Device identifier. This must come after all inclusions.
 PRODUCT_DEVICE := tulip
 PRODUCT_NAME := omni_tulip
 PRODUCT_BRAND := Xiaomi
 PRODUCT_MODEL := Xiaomi Redmi Note 6 Pro
 PRODUCT_MANUFACTURER := Xiaomi
-
-# enable stock zip packages flash
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    ro.secure=1 \
-    ro.adb.secure=0 \
-    ro.allow.mock.location=0
-    # \
-    #ro.hardware.keystore=sdm660
-#
+PRODUCT_RELEASE_NAME := tulip
